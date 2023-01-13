@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>Back-Words: A Coding Project by Julian Macioce</title>
+    <title>FizzBuzz: A Coding Project by Julian Macioce</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,7 +23,7 @@
     <!-- Nav Section -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand logoFont" href="app.html"><img src="img/favicon-32x32.png" class="d-inline-block align-text-top" title="My Favourite Pokémon: Snorlax!" height="26"> BACK-WORDS</a>
+            <a class="navbar-brand logoFont" href="app.html"><img src="img/favicon-32x32.png" class="d-inline-block align-text-top" title="My Favourite Pokémon: Snorlax!" height="26"> FIZZBUZZ</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -40,7 +40,7 @@
                         <a class="nav-link active" aria-current="page" href="code.html">The Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://github.com/JMacioce/Back-Words">Git Repo</a>
+                        <a class="nav-link" target="_blank" href="https://github.com/JMacioce/FizzBuzz">Git Repo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="https://julianmacioce.me/">About</a>
@@ -53,67 +53,181 @@
     <!-- Main Section -->
     <main class="flex-shrink-0">
         <div class="container py-5 px-5 mt-5">
-            <h2 class="border-1 border-bottom border-dark">The Code for <span class="logoFont">Back-Words</span></h2>
+            <h2 class="border-1 border-bottom border-dark">The Code for <span class="logoFont">FizzBuzz</span></h2>
             <div class="row row-cols-1 row-cols-lg-2">
                 <div class="col-lg-8">
                     <pre class="line-numbers">
                         <code class="language-javascript">
-                            //get string from app page
+                            //get fizz and buzz values from the user
                             //controller function
-                            function getValue() {
-                                document.getElementById("alert").classList.add("invisible");
-                                let userString = document.getElementById("userString").value;    
+                            function getValues() {
+                                //get user values from page
+                                let fizzValue = document.getElementById("fizzValue").value;
+                                let buzzValue = document.getElementById("buzzValue").value;
                                 
-                                if (userString.length > 1) {
-                                    //call reverse string passing it the value of userString and setting that to revString
-                                    let backWords = reverseString(userString);
-                                    //calling displayString
-                                    displayString(backWords);
+                                //parse for integers
+                                fizzValue = parseInt(fizzValue);
+                                buzzValue = parseInt(buzzValue);
+
+                                //check that the values are integers
+                                if (Number.isInteger(fizzValue) && Number.isInteger(buzzValue)) {
+                                    //call FizzBuzz
+                                    let fbArray = fizzBuzzC(fizzValue, buzzValue);
+                                    //call displayValues
+                                    displayValues(fbArray);
                                 }
                                 else {
-                                    alert("You must enter at least 2 characters to reverse your string!");
-                                }
-                                
+                                    alert("You must enter integersg!");
+                                }                                
                             }
 
-                            //Reverse string
+                            //For-Loop Solution
                             //logic function
-                            function reverseString(userString) {
+                            function fizzBuzzA(fizzValue, buzzValue) {
                                 //initialize empty array
-                                let backWords = [];
-                                //reverse a string using a for loop
-                                for (let index = userString.length - 1; index >= 0; index--) {
-                                    backWords += userString[index];
+                                let returnArray = [];
+                                //loop from 1 to 100
+                                for (let i = 1; i <= 100; i++) {
+                                    //check to see if divisible by both fizz and buzz value
+                                    if(i % fizzValue == 0 && i % buzzValue == 0) {
+                                        returnArray.push('FizzBuzz');
+                                    }
+                                    //check to see if divisible by fizz value
+                                    else if(i % fizzValue == 0) {
+                                        returnArray.push('Fizz');
+                                    }
+                                    //check to see if divisible by fizz value
+                                    else if(i % buzzValue == 0) {
+                                        returnArray.push('Buzz');
+                                    }
+                                    else {
+                                        returnArray.push(i);
+                                    }
                                 }
-                                return backWords;
+                                return returnArray;
+                            }
+
+                            //Switch Statement Solution
+                            //logic function
+                            function fizzBuzzB(fizzValue, buzzValue) {
+                                let returnArray = [];
+                                let Fizz = false;
+                                let Buzz = false;
+
+                                for (let i = 1; i <= 100; i++) {
+                                    
+                                    Fizz = i % fizzValue == 0;
+                                    Buzz = i % buzzValue == 0;
+                                    
+                                    switch(true) {
+                                        case Fizz && Buzz: {
+                                            returnArray.push('FizzBuzz');
+                                            break;
+                                        }
+                                        case Fizz: {
+                                            returnArray.push('Fizz');
+                                            break;
+                                        }
+                                        case Buzz: {
+                                            returnArray.push('Buzz');
+                                            break;
+                                        }
+                                        default: {
+                                            returnArray.push(i);
+                                            break;
+                                        }
+                                    }
+                                }
+                                return returnArray;
+                            }
+
+                            //Ternary Operator Solution
+                            //logic function
+                            function fizzBuzzC(fizzValue, buzzValue) {
+                                let returnArray = [];
+
+                                for (let i = 1; i <= 100; i++) {
+                                    
+                                    let value = ((i % fizzValue == 0 ? 'Fizz' : '') + (i % buzzValue == 0 ? 'Buzz' : '') || i)
+                                    returnArray.push(value);        
+                                }
+                                return returnArray;
                             }
 
                             //Display reversed string to user
                             //view function
-                            function displayString(backWords) {
-                                //write to page
-                                document.getElementById("msg").innerHTML = `Your string reversed is: ${backWords}`;
-                                //show alert box
-                                document.getElementById("alert").classList.remove("invisible");
+                            function displayValues(fbArray) {
+                                //get table body element from the page
+                                let tableBody = document.getElementById("results");
+                                //get template row
+                                let templateRow = document.getElementById("fbTemplate");
+
+                                //clear table first
+                                tableBody.innerHTML = "";
+
+                                for (let i = 0; i < fbArray.length; i += 5) {
+                                    
+                                    let tableRow = document.importNode(templateRow.content, true);
+                                    
+                                    //grab all the td tags to put in the array
+                                    let rowCols = tableRow.querySelectorAll("td");
+
+                                    rowCols[0].classList.add(fbArray[i]);
+                                    rowCols[0].textContent = fbArray[i];
+
+                                    rowCols[1].classList.add(fbArray[i+1]);
+                                    rowCols[1].textContent = fbArray[i+1];
+
+                                    rowCols[2].classList.add(fbArray[i+2]);
+                                    rowCols[2].textContent = fbArray[i+2];
+
+                                    rowCols[3].classList.add(fbArray[i+3]);
+                                    rowCols[3].textContent = fbArray[i+3];
+
+                                    rowCols[4].classList.add(fbArray[i+4]);
+                                    rowCols[4].textContent = fbArray[i+4];
+
+                                    tableBody.appendChild(tableRow);
+                                }
                             }
                         </code>
                     </pre>
                 </div>
                 <div class="col-lg-4">
-                    <p>The Code is structured in <strong>three</strong> functions</p>
-                    <h5>getValue</h5>
-                    <p>The <strong>getValue</strong> function gets user input from the app page. The function utilizes the <strong>getElementById</strong> to pull the userString value
-                    from the page. If the string length is less than one we set an alert, but if it more than one, we pass the value to the <strong>reverseString</strong> function.
-                    The function <strong>reverseString</strong> then returns an array that we set to the value <strong>backWords</strong> before we pass that
-                    same value to the <strong>displayString</strong> function.</p>
-                    <h5>reverseString</h5>
-                    <p>The <strong>reverseString</strong> function takes in a string parameter (<strong>userString</strong>).
-                    We create a variable <strong>backWords</strong> that holds an array. We then use a for loop to go through each index of the string from its last value to it's
-                    first, each time adding the indexes of <strong>userString</strong> to the array <strong>backWords</strong>.</p>
-                    <h5>displayString</h5>
-                    <p>The function <strong>displayString</strong> takes in the parameter <strong>backWords</strong> (the variable is an array that now holds the reversed string of 
-                    the user's input). We use DOM manipulation to go after elements with id of <strong>"msg"</strong> in our HTML, and we set the contents of that p tag to our template literal.
-                    Then we remove the class list item <strong>"invisible"</strong> on all elements of <strong>"alert"</strong> to make the contents now visible to the user upon click!</p>
+                    <The>The Code is structured in <strong>three</strong> functions. <br> There are also <strong>three</strong> different solutions provided as I had fun solving this problem!</p>
+                    <h5>getValues</h5>
+                    <p>The <strong>getValues</strong> function gets the value for fizz and buzz from the app page. The function utilizes the <strong>getElementById</strong> to pull the values
+                    from the page. We make sure the numbers for fizz and buzz are Integers, and if they are, we pass the values <strong>fizzValue</strong> and <strong>buzzValue</strong> to the <strong>fizzBuzz</strong> function.
+                    The function <strong>fizzBuzz</strong> then returns an array that we set to the value <strong>fbArray</strong> before we pass that
+                    same value to the <strong>displayValues</strong> function. For this solution, we have chosen to select <strong>fizzBuzzC</strong> as our logic function to solve this problem!</p>
+                    <h5>fizzBuzzA (For-Loop Solution)</h5>
+                    <p>This <strong>fizzBuzz</strong> function is the <strong>For-Loop Solution</strong>. It takes in two parameters (<strong>fizzValue</strong> and <strong>fizzValue</strong>).
+                    We initalize an empty array to <strong>returnArray</strong>. We then use a for loop to go through numbers 1 to 100, storing a value into the array for each number.
+                    Using the modulus operator, if the number is divisible by <strong>fizzValue</strong> and <strong>buzzValue</strong>, we push in the word FizzBuzz. Else, if the number
+                    is not divisible by both fizz and buzz values, but only by <strong>fizzValue</strong>, we push in the word Fizz. Else, if the number
+                    is not divisible by both fizz and buzz values, or the <strong>fizzValue</strong>, but is divisible by <strong>buzzValue</strong> we push in the word Buzz.
+                    If none of these previous options are valid, then we send in the number at index 'i' to the array, <strong>returnArray</strong>.</p>
+                    <h5>fizzBuzzB (Switch Statement Solution)</h5>
+                    <p>This <strong>fizzBuzz</strong> function is the <strong>Switch Statement Solution</strong>. It takes in two parameters (<strong>fizzValue</strong> and <strong>fizzValue</strong>).
+                    We initalize an empty array to <strong>returnArray</strong>, and set boolean values <strong>Fizz</strong> and <strong>Buzz</strong> to <strong>false</strong>. 
+                    We then use a for loop to go through numbers 1 to 100, and set statements for when <strong>Fizz</strong> and <strong>Buzz</strong> are divisible that they would be <strong>true</strong>.
+                    Using a switch statement, in the case where <strong>Fizz</strong> and <strong>Buzz</strong> are <strong>true</strong>, we push in the word FizzBuzz to the array at that index.
+                    In the case where <strong>Fizz</strong> is only <strong>true</strong>, we push in the word Fizz to the array at that index.
+                    In the case where <strong>Buzz</strong> is only <strong>true</strong>, we push in the word Buzz to the array at that index.
+                    The default case is just to push the number value of the index into the array <strong>returnArray</strong> if the previous conditions were not met.</p>
+                    <h5>fizzBuzzC (Ternary Operator Solution)</h5>
+                    <p>This <strong>fizzBuzz</strong> function is the <strong>Ternary Operator Solution</strong>. It takes in two parameters (<strong>fizzValue</strong> and <strong>fizzValue</strong>).
+                    We initalize an empty array to <strong>returnArray</strong>. 
+                    We then use a for loop to go through numbers 1 to 100, and inside the loop we use a ternary operator for when the <strong>fizzValue</strong> is divisble by 'i', that we add the
+                    word Fizz to the array, additionally, we use a ternary operator for when the <strong>buzzValue</strong> is divisble by 'i', that we add the word Buzz to the array, OR we add the
+                    value 'i' to the array. This helps us cover the case where we need to add the word FizzBuzz to the array, as we concatenate the word Fizz with Buzz when both are divisible by 'i'.
+                    The array <strong>returnArray</strong> is then returned.</p>
+                    <h5>displayValues</h5>
+                    <p>The function <strong>displayValues</strong> takes in the parameter <strong>fbArray</strong> (the variable is an array that now holds the list of FizzBuzz values from 1 to 100).
+                    We then get <strong>tableBody</strong> and <strong>templateRow</strong> from our HTML. We then clear the table before adding values.
+                    Then we create a for loop that increments 5 values at a time and also create values <strong>tableRow</strong> and <strong>rowCols</strong> to grab all the td tags in our HTML.
+                    Then at each of the 5 indices at a time for each of the 5 rows, we add the class element from the CSS to provide the colour for our words in our display, while also adding the content
+                    into the td tags. We then append all 5 values into our rows inside of our <strong>template element</strong> inside our HTML where the final display is shown to the user!</p>
                 </div>
             </div>
         </div>

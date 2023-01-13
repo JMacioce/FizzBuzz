@@ -1,10 +1,11 @@
 :root {
-    --primary-color: #9b0500;
+    --primary-color: #5ab6c7;
     --secondary-color: #F1E5D8;
     --dark-color: #292929;
     --white-color: #f3dfe9;
     --fa-color: #F1E5D8;
-    --fa2-color: #b31515;
+    --fa2-color: #db771a;
+    --navfoot-color: #1a5066;
 }
 
 .odd {
@@ -27,11 +28,11 @@ body {
 }
 
 nav {
-    background-color: var(--dark-color);
+    background-color: var(--navfoot-color);
 }
 
 footer {
-    background-color: var(--dark-color);
+    background-color: var(--navfoot-color);
     padding-right: 1rem;
 }
 
@@ -62,7 +63,7 @@ h3, h4, h6 {
 }
 
 .fa-li {
-    color: var(--primary-color);
+    color: var(--fa2-color);
 }
 
 .bsicon {
@@ -87,6 +88,17 @@ h3, h4, h6 {
     color: #ffffffb6;
 }
 
+.Fizz {
+    color: var(--primary-color);
+}
+.Buzz {
+    color: var(--fa2-color);
+}
+.FizzBuzz {
+    color: var(--navfoot-color);
+    font-weight: bold;
+}
+
 code[class*="language-"],
     pre[class*="language-"] {
         white-space: pre-wrap;
@@ -104,7 +116,3 @@ main>.container {
     bottom: 0;
     width: 100%;
 }
-
-#msg {
-    word-wrap: break-word;
-    }
